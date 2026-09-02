@@ -34,4 +34,3 @@ scripts/hash-password.mjs
 Crie um projeto no Vercel usando este repositório e configure **Root Directory** como `backend`. Cadastre `AUTH_EMAIL`, `APP_PASSWORD_HASH` e `JWT_SECRET` nos ambientes Production, Preview e Development.
 
 Depois de publicar, anote a URL do backend. O frontend precisará encaminhar `/api/*` para essa URL para manter a autenticação no mesmo domínio do navegador.
-

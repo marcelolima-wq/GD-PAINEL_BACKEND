@@ -10,4 +10,3 @@ const salt = randomBytes(16).toString('hex');
 const hash = scryptSync(password, salt, 64).toString('hex');
 console.log(`${salt}:${hash}`);
 
-

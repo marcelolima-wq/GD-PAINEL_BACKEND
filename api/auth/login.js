@@ -32,4 +32,3 @@ export default async function handler(request, response) {
   response.setHeader('Set-Cookie', sessionCookie(token));
   return response.status(200).json({ authenticated: true, email });
 }
-

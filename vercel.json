@@ -20,4 +20,3 @@
     { "src": "/health", "dest": "/api/health.js" }
   ]
 }
-

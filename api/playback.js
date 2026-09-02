@@ -39,4 +39,3 @@ export default async function handler(request, response) {
     return response.status(503).json({ error: error.message || 'Falha ao atualizar reprodução.' });
   }
 }
-
