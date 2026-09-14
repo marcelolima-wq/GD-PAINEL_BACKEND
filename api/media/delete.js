@@ -1,4 +1,5 @@
 import { del } from '@vercel/blob';
+import { deleteCloudinaryAsset } from '../../lib/cloudinary.js';
 import { noStore } from '../../lib/auth.js';
 import { requireUser } from '../../lib/session.js';
 
@@ -11,6 +12,10 @@ export default async function handler(request, response) {
   }
   try {
     const url = new URL(request.body?.url);
+    if (url.hostname === 'res.cloudinary.com') {
+      await deleteCloudinaryAsset(url.toString());
+      return response.status(200).json({ deleted: true });
+    }
     if (url.protocol !== 'https:' || !url.hostname.endsWith('.public.blob.vercel-storage.com')) {
       return response.status(400).json({ error: 'URL de mídia inválida.' });
     }
