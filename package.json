@@ -5,15 +5,13 @@
   "type": "module",
   "scripts": {
     "dev": "vercel dev",
-    "hash-password": "node scripts/hash-password.mjs",
-    "test": "node --test tests/*.test.js"
+    "hash-password": "node scripts/hash-password.mjs"
   },
   "engines": {
     "node": ">=20"
   },
   "dependencies": {
-    "@vercel/blob": "^2.8.0",
-    "google-auth-library": "11.0.2"
+    "@vercel/blob": "^2.8.0"
   },
   "devDependencies": {
     "vercel": "^48.0.0"

@@ -1,4 +1,4 @@
-import { authConfiguration, isAuthorizedSession, noStore, readSessionCookie, verifyToken } from '../../lib/auth.js';
+import { authConfiguration, noStore, readSessionCookie, verifyToken } from '../../lib/auth.js';
 
 export default function handler(request, response) {
   noStore(response);
@@ -11,7 +11,8 @@ export default function handler(request, response) {
   if (!config) return response.status(503).json({ authenticated: false });
 
   const payload = verifyToken(readSessionCookie(request), config.jwtSecret);
-  if (!isAuthorizedSession(payload, config)) return response.status(401).json({ authenticated: false });
+  if (!payload || payload.email !== config.email) return response.status(401).json({ authenticated: false });
 
-  return response.status(200).json({ authenticated: true, email: payload.email, name: payload.name || '', picture: payload.picture || '', provider: payload.provider || 'local' });
+  return response.status(200).json({ authenticated: true, email: payload.email });
 }
+
