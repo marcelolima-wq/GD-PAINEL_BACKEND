@@ -33,4 +33,8 @@ scripts/hash-password.mjs
 
 Crie um projeto no Vercel usando este repositório e configure **Root Directory** como `backend`. Cadastre `AUTH_EMAIL`, `APP_PASSWORD_HASH` e `JWT_SECRET` nos ambientes Production, Preview e Development.
 
+Para habilitar o login corporativo pelo Google, crie um cliente OAuth 2.0 do tipo Aplicativo da Web no Google Cloud, autorize a origem `https://gd-painel-frontend.vercel.app` e configure `GOOGLE_CLIENT_ID` e `GOOGLE_ALLOWED_DOMAIN=granddos.tech` no backend. O client ID é público; nenhum client secret é usado ou enviado ao navegador.
+
+Contas Google com `email_verified=true` e claim `hd=granddos.tech` são criadas no Redis no primeiro acesso. Quando já existe uma conta local com o mesmo e-mail, o provedor Google é vinculado automaticamente ao mesmo cadastro.
+
 Depois de publicar, anote a URL do backend. O frontend precisará encaminhar `/api/*` para essa URL para manter a autenticação no mesmo domínio do navegador.

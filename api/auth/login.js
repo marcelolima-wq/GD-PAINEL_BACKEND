@@ -5,6 +5,7 @@ import {
   sessionCookie,
   verifyPassword
 } from '../../lib/auth.js';
+import { upsertLocalUser } from '../../lib/users.js';
 
 export default async function handler(request, response) {
   noStore(response);
@@ -28,7 +29,11 @@ export default async function handler(request, response) {
 
   if (!valid) return response.status(401).json({ error: 'E-mail ou senha inválidos.' });
 
-  const token = createToken(email, config.jwtSecret);
+  const user = await upsertLocalUser(email).catch(error => {
+    console.warn('Não foi possível atualizar o cadastro local.', error);
+    return { name: email.split('@')[0] };
+  });
+  const token = createToken(email, config.jwtSecret, { provider: 'local', name: user.name });
   response.setHeader('Set-Cookie', sessionCookie(token));
   return response.status(200).json({ authenticated: true, email });
 }
